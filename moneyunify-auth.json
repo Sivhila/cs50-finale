@@ -1,0 +1,26 @@
+
+{
+	    "message": "Transaction Initiated Successfully",
+	    "data": {
+		    "status": "initiated",
+		    "amount": 1,
+		    "transaction_id": "sPX215101815432505",
+		    "charges": 0.035,
+		    "from_payer": "260971xxxxxxx"
+	    },
+	    "isError": false
+}
+
+
+
+{
+	    "message": "Transaction processed Successfully",
+	    "data": {
+		    "status": "successful",
+		    "amount": "1.00",
+		    "transaction_id": "LP101815411535505",
+		    "charges": "0.04",
+		    "from_payer": "26097xxxxxxx"
+	    },
+	    "isError": false
+}

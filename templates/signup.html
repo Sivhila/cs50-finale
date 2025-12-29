@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Sign Up
+{% endblock %}
+
+
+
+{% block main %}
+
+<form class="login-form" onsubmit="return false;">
+	<div class="mb-3">
+		<input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="email-input" name="email" placeholder="Email" type="email" required>
+		<div id="email-error-message" class="error-msg"></div>
+	</div>
+	
+	<div class="mb-3">
+		<input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="password-input" name="password" placeholder="Password" type="password" required>
+		<div id="password-error-message" class="error-msg"></div>
+	</div>
+
+	<button id="create-account-btn" type="button" class="btn btn-primary">Create Account</button>
+</form>
+
+<div class="alt-signin-divider">OR</div>
+
+<button id="sign-up-with-google-btn" type="button" class="btn btn-google btn-lg" style="width: 280px;">
+	<img src="https://static.dezeen.com/uploads/2025/05/sq-google-g-logo-update_dezeen_2364_col_0.jpg" alt="Google Sign Up" style="width: 24px">
+	<span>Sign Up with Google</span>
+</button>
+<div id="google-signin-error-message" class="error-msg"></div>
+
+<button id="sign-up-with-apple-btn" type="button" class="btn btn-google btn-lg">
+	<img src="https://endlessicons.com/wp-content/uploads/2012/11/apple-icon-614x460.png" alt="Apple Sign Up">
+	<span>Sign Up with Apple</span>
+</button>
+<div id="apple-signin-error-message" class="error-msg"></div>
+
+<div class="alt-signup-divider">Already have an account? <a href="/login">Log In</a>
+</div>
+
+<script type="module" src="/static/login-auth.js"></script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Withdraw 
+{% endblock %}
+
+{% block main %}
+<div class="balance">
+	<p>Available Balance: {{ "%.2f"|format(available_balance) }}
+</div>
+
+<form action="/withdraw" method="post">
+	<div class="mb-3">
+		<label for="amount">Withdrawal Amount (ZMW)</label>
+		<input type="number" step="0.01" name="amount" id="amount" required>
+
+		<label for="withdraw method">Withdrawl Method</label>
+		<select name="withdraw_method" id="withdraw_method" required onchange="toggleMethod()">
+			<option value="">--Select Method--</option>
+			<option value="mobile">Mobile Money</option>
+			<option value="card">Bank / Card</option>
+		</select>
+	</div>
+	
+	<div class="mb-3">
+		<div id="mobile" class="method-section">
+			<label for="provider">Mobile Provider</label>
+			<select name="provider" id="provider">
+				<option value="MTN">MTN</option>
+				<option value="Airtel">Airtel</option>
+			</select>
+
+			<label for="phone">Mobile Number</label>
+			<input type="text" name="phone" id="phone" placeholder="097xxxxxxx/096xxxxxxx">
+		</div>
+	</div>
+	
+	<div class="mb-3"
+		<div id="card" class="method-section">
+			<label for="card_number">Card / Account Number</label>
+			<input type="text" name="card_number" id="card_number">
+
+			<label for="expiry">Expiry Date</label>
+			<input type="text" name="expiry" id="expiry" placeholder="MM/YY">
+
+			<label for="cvv">CVV</label>
+			<input type="password" name="cvv" id="cvv">
+		</div>
+
+		<label for="account_details">Account Notes</label>
+		<textarea name="account_details" id="account_details" placeholder="Optional notes"></textarea>
+		
+		<button type="submit">Request Withdrawl</button>
+	</div>
+</form>
+
+<p class="note">
+Mininum withdrawl is ZMW 10. Payments are processed within 72 hours.
+</p>
+
+
+
+{% endblock %}
+

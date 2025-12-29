@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Submit Complete Task
+{% endblock %}
+
+{% block main %}
+<div class="alert alert-warning text-center">
+	<strong>Time remaining:</strong>
+	<span id="countdown" data-seconds="{{ remaining_seconds }}"></span>
+</div>
+
+<form action="/complete_task/{{ task_id }}" method="post" enctype="multipart/form-data">
+	<div class="mb-3">
+		<label class="form-label">Upload Task</label>
+		<input class="form-control mx-auto w-auto" name="assignment_file" type="file" accept=".text,.pdf,.doc,.docx,image/*">
+	</div>
+
+	<button id="submitTaskBtn" class="btn btn-success">Submit Task</button>
+
+</form>
+
+
+{% endblock %}

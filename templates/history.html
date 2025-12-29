@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	History
+{% endblock %}
+
+{% block main %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Pages</th>
+				<th>Status</th>
+				<th>Date/Time</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in assignments %}
+			<tr>
+				<td>{{ row.title }}</td>
+				<td>{{ row.pages }}</td>
+				<td>
+					{% if row.status == "pending" %}
+					<span class="badge bg-warning">Assignment pending</span>
+
+					{% elif row.status == "in_progress" %}
+					<span class="badge bg-primary">In Progress</span>
+
+					{% elif row.status == "waiting_proofread" %}
+					<span class="badge bg-info">Awaiting Proofread</span>
+
+					{% elif row.status == "approved_work" %}
+					<span class="badge bg-success">Ready</span>
+
+					{% elif row.status == "correction_required" %}
+					<span class="badge bg-danger">Correction Required</span>
+
+					{% else %}
+					<span class="badge bg-secondary">Unknown</span>
+
+					{% endif %}
+				</td>
+				<td>
+					{% if row.created_at %}
+					{{ row.created_at }}
+					{% else %}
+
+					{% endif %}
+				</td>
+				<td>
+					{% if row.status == "approved_work" and row.completed_file_url %}
+					<a href="{{ row.completed_file_url }}" class="btn btn-sm btn-primary">Download</a>
+					{% else %}
+					<button class="btn btn-sm btn-primary disabled">Not Ready</button>
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+
+{% endblock %}
+
+

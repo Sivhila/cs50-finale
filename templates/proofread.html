@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Proofread Task
+{% endblock %}
+
+{% block main %}
+<div class="task_info">
+	{% for row in task_data %}
+	<p><strong>Task:</strong>{{ row.title }}</p>
+	<p><strong>Title:</strong>{{ row.title }}</p>
+	<p><strong>Pages:</strong>{{ row.title }}</p>
+	<p><strong>Instructions:</strong>{{ row.instruction }}</p>
+	<p><strong>reference style:</strong>{{ row.reference }}</p>
+	<p><strong>Task file:</strong>{{ row.completed_file_url }}</p>
+</div>
+
+<div class="alert alert-warning text-center">
+	<strong>Time remaining:</strong>
+	<span id="countdown" data-seconds="{{ remaining_seconds }}"></span>
+</div>
+
+<form action="/submit_proofread/{{ task_id }}" method="post" enctype="multipart/form-data">
+	<div class="mb-3">
+		<label class="form-label">Proofreader Comment</label>
+		<textarea name="comment" id="comment" placeholder="Write your feedback or corrections here"></textarea>
+	</div>
+	
+	<div class="actions">
+		<button id="submitTaskBtn" type="submit" name="action" value="approve" class="approve">
+			Approve work
+		</button>
+		<button id="submitTaskBtn" type="submit" name="action" value="reject" class="reject">
+			Reject & Request Correction
+		</button>
+	</div>
+</form>
+
+
+
+
+{% endblock %}
+

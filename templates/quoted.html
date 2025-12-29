@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Quoted
+{% endblock %}
+
+
+{% block main %}
+
+<div class="card-body">
+
+	<p class="text-success fw-bold">
+	Your quote has been successfully generated. Please review the details below.
+	</p>
+
+	{% for item in data %}
+	<table class="table table-bordered mt-3">
+		<tbody>
+			<tr>
+				<th width="35%">Task Type</th>
+				<td>{{ item.task | capitalize }}</td>
+			</tr>
+			<tr>
+				<th>Title</th>
+				<td>{{ item.title }}</td>
+			</tr>
+			<tr>
+				<th>Pages</th>
+				<td>{{ item.pages }}</td>
+			</tr>
+			<tr>
+				<th>Referencing Style</th>
+				<td>{{ item.reference }}</td>
+			</tr>
+			<tr>
+				<th>Instructions</th>
+				<td>{{ item.instruction }}</td>
+			</tr>
+			<tr>
+				<th>Uploaded File</th>
+				<td>
+					<a href="{{ item.file_url }}" target="_blank" class="btn btn-sm btn-primary">
+						 View File
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	{% endfor %}
+
+	<div class="alert alert-info text-center mt-4">
+		<h5 class="mb-1">Total Price</h5>
+		<h2 class="fw-bold">{{ price | ZMW }}</h2>
+	</div>
+
+	<div class="d-flex justify-content-between mt-4">
+		<a href="/payment?id={{ quote_id }}" class="btn btn-primary">Proceed To Payment</a>
+		<a href="/" class="btn btn-primary">Go To Index</a>
+	</div>
+</div>
+
+{% endblock %}
+

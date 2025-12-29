@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Index
+{% endblock %}
+
+{% block main %}
+{% if assignments %}
+<table class="table">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Title</th>
+			<th>Pages</th>
+			<th>Price</th>
+			<th>Status</th>
+			<th>Created</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for task in assignments %}
+		<tr>
+			<td>{{ loop.index }}</td>
+			<td>{{ task.title or 'Untitled' }}</td>
+			<td>{{ task.pages or '_' }}</td>
+			<td>{{ task.price or '0.00' }}</td>
+			<td>
+				{% if task.status == 'approved_work' %}
+				<span class="status approved">Approved</span>
+				{% elif task.status == 'waiting_proofread' %}
+				<span class="status waiting">Waiting Proofread</span>
+				{% elif task.status == 'correction_required' %}
+				<span class="status correction">Correction Required</span>
+				{% else %}
+				<span class="status other">{{ task.status }}</span>
+				{% endif %}
+			</td>
+			<td>
+				{{ task.created_at.strftime('%d %b %Y') if task.created_at }}
+			</td>
+			<td class="actions">
+				{% if task.status == 'correction_required' %}
+				<a href="/complete_task/{{ task.id }}">Resubmit</a>
+				{% elif task.completed_file_url %}
+				<a href="{{ task.completed_file_url }}" download class="btn btn-sm btn-primary">Download</a>
+				{% else %}
+				_
+				{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<p>No Tasks found.</p>
+{% endif %}
+
+{% endblock %}

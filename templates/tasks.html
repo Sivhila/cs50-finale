@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Tasks
+{% endblock %}
+
+{% block main %}
+	<div class="container mt-4">
+		<h2>Available Writing Tasks</h2>
+		 {% if tasks %}
+		 <div class="row">
+			 {% for row in tasks %}
+			 <div class="col-md-6 mb-4">
+				 <div class="card shadow-sm">
+					 <div class="card-body">
+						 <span class="badge bg-info mb-2">{{ row.task_type }}</span>
+
+						 <h5 class="card-title">{{ row.title }}</h5>
+						 <h6 class="card-subtitle mb-2 text-muted">{{ row.task }}</h6>
+
+						 <p class="card-text mt-2">
+						 <span>Pages: {{ row.pages }}</span>
+						 <span>Instructions: {{ row.instruction }}</span>
+						 <span>Referencing: {{ row.reference }}</span>
+						 </p>
+
+						 <div class="alert alert-success">
+							 {% if row.status == "pending" %}
+							 <span>Writer Earnings: {{ row.writer_earnings | ZMW }}</span>
+							 {% elif row.status == "waiting_proofread" %}
+							 <span>Proofreader Earnings: {{ row.proofreader_earnings | ZMW }}</span>
+							 {% endif %}
+						 </div>
+
+
+						 <div class="d-flex justify-content-between align-items-center">
+							 <a href="{{ row.file_url }}" target="_blank" class="btn btn-sm btn-outline-primary">View File</a>
+							 {% if row.status == "pending" %}
+							 <form action="/accept_task/{{ row.id }}" method="POST">
+								 <button type="submit" class="btn btn-success">Accept Writing Task</button>
+							 </form>
+
+							 {% elif row.status == "waiting_proofread" %}
+							 <form action="/accept_proofread/{{ row.id }}" method="POST">
+								 <button type="submit" class="btn btn-warning">
+									 Accept Proofreading
+								 </button>
+							 </form>
+							 {% endif %}
+						 </div>
+
+						 {% if row.status == "in_progress" and row.writer_id == writer_id %}
+						 <a href="/complete_task/{{ row.id }}" class="btn btn-primary">
+							 Complete Writing Task
+						 </a>
+						 {% elif row.status == "proofread_in_progress" and row.proofreader_id == user_id %}
+						 <a href="/submit_proofread/{{ row.id }}" class="btn btn-primary">
+							 Complete Proofreading Task
+						 </a>
+						 {% endif %}
+					 </div>
+
+					 <div class="card-footer text-muted">
+						 posted:
+						 {% if row.created_at %}
+						 	{{ row.created_at.strftime('%Y-%m-%d') }}
+						 {% else %}
+						 Just Now
+						 {% endif %}
+					 </div>
+				 </div>
+			 </div>
+			 {% endfor %}
+		 </div>
+		 {% else %}
+		 <div class="alert alert-info">No new tasks available right now. Check back later!</div>
+		 {% endif %}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Profile
+{% endblock %}
+
+{% block main %}
+	<form class="login-form" action="/profile" method="post" enctype="multipart/form-data">  
+		<div class="mb-3">
+			<label class="form-label">Role:</label>
+			<select name="role" id="roleSelect" class="form-select" required>
+				<option value="">Select role</option>
+				<option value="customer"
+					{{ 'selected' if user.get('role') == 'customer' }}>
+				Customer
+				</option>
+				<option value="writer"
+					{{ 'selected' if user.get('role') == 'writer' }}>
+					Writer
+				</option>
+			</select>
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label">University: </lable>
+			<input autocomplete="off" autofocus class="form-control" type="text" name="university" value="{{ user.get('university', '') }}" required>
+		</div>
+
+
+		<div class="mb-3">
+			<label class="form-label">Program: </label>
+			<input autocomplete="off" autofocus class="form-control" name="program" type="text" value="{{ user.get('program', '') }}" required>
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label">Major</label>
+			<input autocomplete="off" autofocus class="form-control" name="major" type="text" value="{{ user.get('major', '') }}">
+		</div>
+		
+		<div class="mb-3">
+			<label class="form-label">Minor</label>
+			<input autocomplete="off" autofocus class="form-control" name="minor" type="text" value="{{ user.get('minor', '') }}">
+		</div>
+
+		<div class="mb-3" id="certificate-section" style="display:none;">
+			<label class="form-label">Upload Certificate (PDF/JPEG/PNG)</label>
+			<input class="form-control" type="file" name="certificate" accept=".pdf,.jpg,.jpeg,.png">
+			{% if user.get("certificate_url") %}
+			<small class="d-block mt-2">
+				Current certificate:
+				<a href="{{ user.cerificate_url }}" target="_blank">
+					View
+				</a>
+			</small>
+			{% endif %}
+		</div>
+
+		<div class="d-grid mt-4">
+			<button type="submit" class="btn btn-primary btn-lg">Save Profile</button>
+		</div>
+	</form>
+
+{% endblock %}

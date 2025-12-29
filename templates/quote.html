@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Quote
+{% endblock %}
+
+{% block main %}
+	
+<form action="/quote" method="post" enctype="multipart/form-data">
+	<div class="mb-3">
+		<label class="form-label">Select Task:</label>
+		
+		<input id="research" type="radio" name="task" value="research" required>
+		<label for="research">Research</label>
+
+
+		<input id="assignment" type="radio" name="task" value="assignment" required>
+		<label for="assignment">Assignment</label>
+	</div>
+
+	<div id="researchTeam" class="mt-3 text-center" style="display: none;">
+		<span>For Research tasks contact <a href="/research">Research Team</a></span>
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">Assignment Title:</label>
+		<input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="title" placeholder="Assignment Title" type="text">
+	
+	<div class="mb-3">
+		<label class="form-label">Insert number of pages (for assignments only):</label>
+		<input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="pages" placeholder="Number of pages" type="number" min="1" max="15">
+	</div>
+	<div class="mb-3">
+		<input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="reference" Placeholder="Referencing Style" type="text">
+	</div>
+	<div class="mb-3">
+		<label class="form-label">Special instruction</label>
+		<input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="instruction" placeholder="Special Instructions" type="text">
+	</div>
+	<div class="mb-3">
+		<label class="form-label">Upload file</label>
+		<input class="form-control mx-auto w-auto" name="data" id="data" type="file" accept=".txt,.pdf,.doc,.docx,image/*">
+	</div>
+	<button class="btn btn-primary w-100" type="submit">Get Quotation</button>
+
+</form>
+
+{% endblock %}
+
